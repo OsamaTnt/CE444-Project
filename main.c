@@ -33,6 +33,7 @@ int *getLineSize(FILE *srcFile,int dataSize)
     i=0;
     while((c=fgetc(srcFile))!=EOF) {if(c=='\n') {LineSize[i++]++;} else{LineSize[i]++;} }
 
+
     return LineSize;
 }
 
