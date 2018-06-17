@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1529024337 source:/home/osama/Desktop/CE444_HW/BinarySearchFile/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1529074922 source:/home/osama/Desktop/CE444_HW/BinarySearchFile.2/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1529080508 source:/home/osama/Desktop/CE444_HW/BinarySearchFile.3/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1529255070 source:/home/osama/Desktop/CE444_HW/BinarySearchFile.4/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
