@@ -33,7 +33,6 @@ int *getLineSize(FILE *srcFile,int dataSize)
     i=0;
     while((c=fgetc(srcFile))!=EOF) {if(c=='\n') {LineSize[i++]++;} else{LineSize[i]++;} }
 
-
     return LineSize;
 }
 
@@ -54,6 +53,18 @@ char *getFileData(FILE *srcFile)
     return buffer;
 }
 
+char *getLow(char *S)
+{
+    char *temp = malloc(sizeof(S));
+    int i;
+    for(i=0;i<strlen(S)+1;i++)
+    {
+        temp[i]=S[i];
+        if(S[i]>=65 && S[i]<=97) {temp[i]=tolower(S[i]);}
+    }
+    return temp;
+}
+
 void proc_Sort(char **Data,int dataSize)
 {
     int i=0,j=0,minIndex;
@@ -63,7 +74,7 @@ void proc_Sort(char **Data,int dataSize)
     {
         minIndex=i;
         for(j=i+1;j<dataSize;j++)
-        { if(strcmp(Data[j],Data[minIndex])<0) {minIndex=j;} }
+        { if(strcmp(getLow(Data[j]),getLow(Data[minIndex]))<0) {minIndex=j;} }
 
         if(minIndex!=i)
         {
@@ -77,7 +88,7 @@ void proc_Sort(char **Data,int dataSize)
 void Display(char **Data)
 {
     int i=0;
-    while(Data[i]!=NULL) {printf("%s\n",Data[i++]);}
+    while(Data[i]!=NULL) {printf("%s\n",getLow(Data[i++]));}
 }
 
 void storeToFile(FILE *File,char **Data,int dataSize)
@@ -97,12 +108,26 @@ void storeToFile(FILE *File,char **Data,int dataSize)
 void proc_BinarSearch(char *keyToFind,char**Data,int dataSize)
 {
     int isFound=0,L=0,U=dataSize-1,M;
-
     while(isFound==0 && L<=U)
     {
        M=L+(U-L)/2;
-       if(strcmp(keyToFind,Data[M])==0) {printf("%s is found at index #%d\n",keyToFind,M);isFound=1;return;}
-       else if(strcmp(keyToFind,Data[M])>0) {L=M+1;}
+       if(strcmp(keyToFind,Data[M])==0)
+       {
+          printf("%s is found at index #%d\n",keyToFind,M);
+          isFound=1; return;
+
+          //search in lower if it can't be found in normal case
+          if(isFound==0)
+          {
+            if(strcmp(getLow(keyToFind),getLow(Data[M]))==0)
+            {
+                printf("%s is found at index #%d\n",keyToFind,M);
+                isFound=1; return;
+            }
+          }
+       }
+
+       else if(strcmp(getLow(keyToFind),getLow(Data[M]))>0) {L=M+1;}
        else {U=M-1;}
     }
 
@@ -127,12 +152,15 @@ int main(int argc,char* argv[])
        proc_Sort(Data,getDataSize(srcFile));
        storeToFile(srcFile,Data,getDataSize(srcFile));
 
+        Display(Data);
+
        //BinarySearch
        char *keyToFind=malloc(sizeof(char*));
        gets(keyToFind);
 
        proc_BinarSearch(keyToFind,Data,getDataSize(srcFile));
 
+        Display(Data);
     }
     return 0;
 }
