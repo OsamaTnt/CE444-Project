@@ -88,7 +88,7 @@ void proc_Sort(char **Data,int dataSize)
 void Display(char **Data)
 {
     int i=0;
-    while(Data[i]!=NULL) {printf("%s\n",getLow(Data[i++]));}
+    while(Data[i]!=NULL) {printf("%s\n",Data[i++]);}
 }
 
 void storeToFile(FILE *File,char **Data,int dataSize)
@@ -152,15 +152,12 @@ int main(int argc,char* argv[])
        proc_Sort(Data,getDataSize(srcFile));
        storeToFile(srcFile,Data,getDataSize(srcFile));
 
-        Display(Data);
-
        //BinarySearch
        char *keyToFind=malloc(sizeof(char*));
        gets(keyToFind);
 
        proc_BinarSearch(keyToFind,Data,getDataSize(srcFile));
 
-        Display(Data);
     }
     return 0;
 }
