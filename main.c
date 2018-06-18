@@ -96,7 +96,7 @@ void storeToFile(FILE *File,char **Data,int dataSize)
 
 void proc_BinarSearch(char *keyToFind,char**Data,int dataSize)
 {
-    int isFound=0,L=0,U=dataSize,M;
+    int isFound=0,L=0,U=dataSize-1,M;
 
     while(isFound==0 && L<=U)
     {
